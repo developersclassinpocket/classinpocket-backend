@@ -10,7 +10,22 @@ export class QuestionService {
 
     async addQuestion(question: AddQuestion): Promise<Question> {
         const result = new this.questionModel(question);
-
         return result.save();
+    }
+
+    async insertManyQuestion(questionList: AddQuestion[]) {
+        //insert list of questions
+    }
+
+    async getQuestionById(questionId: string) {
+        //get question by id
+    }
+
+    async getAllQuestions() {
+        //get all qusestions
+    }
+
+    async filterQuestion() {
+        //get filter questions
     }
 }
