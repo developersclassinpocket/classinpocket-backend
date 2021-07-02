@@ -4,7 +4,9 @@ import { QuestionModule } from "./questions-library/question.module";
 
 @Module({
     imports: [
-        MongooseModule.forRoot("mongodb+srv://god:god123@cluster0.elxva.mongodb.net/question_bank"),
+        MongooseModule.forRoot("mongodb+srv://god:god123@cluster0.elxva.mongodb.net/question_bank", {
+            useCreateIndex: true,
+        }),
         QuestionModule,
     ],
 })

@@ -1,31 +1,44 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
-import { QuestionDocument, Question } from "src/schemas/question.schema";
-import { AddQuestion } from "./dto/question.dto";
+import { QuestionDocument } from "src/schemas/question.schema";
+import { Question } from "./dto/question.dto";
+
+interface FilterQuestion {
+    board: string;
+    class: string;
+    subject: string;
+    chapter: string[];
+    questionMarks: number;
+    numberOfQuestions: number;
+}
 
 @Injectable()
 export class QuestionService {
     constructor(@InjectModel("question") private questionModel: Model<QuestionDocument>) {}
 
-    async addQuestion(question: AddQuestion): Promise<Question> {
-        const result = new this.questionModel(question);
-        return result.save();
+    async addQuestions(questions: Question[]) {
+        await this.questionModel.insertMany(questions, { lean: true });
     }
 
-    async insertManyQuestion(questionList: AddQuestion[]) {
-        //insert list of questions
-    }
+    async getQuestions(filterQuestion: FilterQuestion) {
+        const result = await this.questionModel.aggregate([
+            {
+                $match: {
+                    board: filterQuestion.board,
+                    class: filterQuestion.class,
+                    subject: filterQuestion.subject,
+                    chapter: { $in: filterQuestion.chapter },
+                    question_marks: filterQuestion.questionMarks,
+                },
+            },
+            {
+                $sample: {
+                    size: filterQuestion.numberOfQuestions,
+                },
+            },
+        ]);
 
-    async getQuestionById(questionId: string) {
-        //get question by id
-    }
-
-    async getAllQuestions() {
-        //get all qusestions
-    }
-
-    async filterQuestion() {
-        //get filter questions
+        return result;
     }
 }

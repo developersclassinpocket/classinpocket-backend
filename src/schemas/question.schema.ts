@@ -1,15 +1,25 @@
 import { Prop, raw, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document } from "mongoose";
 
-export type QuestionDocument = Question & Document;
-
 @Schema()
-export class Question {
-    @Prop()
+class Question {
+    @Prop({ index: true })
+    board: string;
+
+    @Prop({ index: true })
+    class: string;
+
+    @Prop({ index: true })
     subject: string;
 
     @Prop()
-    topic: string;
+    topic: string[];
+
+    @Prop({ index: true })
+    chapter: string;
+
+    @Prop()
+    paper_cat: string;
 
     @Prop()
     difficulty_level: string;
@@ -17,19 +27,16 @@ export class Question {
     @Prop()
     question_text: string;
 
-    @Prop()
-    option_type: string;
-
     @Prop([raw({ text: { type: String }, value: { type: Boolean } })])
-    question_options: Record<string, any>[];
+    question_options?: Record<string, any>[];
 
     @Prop()
     question_cat: string;
 
     @Prop()
-    question_time: number;
+    question_time?: number;
 
-    @Prop()
+    @Prop({ index: true })
     question_marks: number;
 
     @Prop()
@@ -39,4 +46,5 @@ export class Question {
     video_solution: string;
 }
 
+export type QuestionDocument = Question & Document;
 export const QuestionSchema = SchemaFactory.createForClass(Question);
