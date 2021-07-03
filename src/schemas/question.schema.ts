@@ -7,7 +7,7 @@ class Question {
     board: string;
 
     @Prop({ index: true })
-    class: string;
+    class_name: string;
 
     @Prop({ index: true })
     subject: string;

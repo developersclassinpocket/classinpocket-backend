@@ -1,6 +1,7 @@
 import { NestFactory } from "@nestjs/core";
 import { SwaggerModule, DocumentBuilder } from "@nestjs/swagger";
 import { ValidationPipe, Logger } from "@nestjs/common";
+import { json } from "express";
 import * as helmet from "helmet";
 import { AppModule } from "./app.module";
 
@@ -9,6 +10,7 @@ const PORT = process.env.PORT || 3000;
 async function server() {
     const app = await NestFactory.create(AppModule, { cors: true, logger: new Logger() });
     app.use(helmet());
+    app.use(json({ limit: "50mb" }));
     app.useGlobalPipes(new ValidationPipe());
 
     const config = new DocumentBuilder()

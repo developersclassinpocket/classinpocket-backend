@@ -6,7 +6,7 @@ import { Question } from "./dto/question.dto";
 
 interface FilterQuestion {
     board: string;
-    class: string;
+    class_name: string;
     subject: string;
     chapter: string[];
     questionMarks: number;
@@ -26,7 +26,7 @@ export class QuestionService {
             {
                 $match: {
                     board: filterQuestion.board,
-                    class: filterQuestion.class,
+                    class_name: filterQuestion.class_name,
                     subject: filterQuestion.subject,
                     chapter: { $in: filterQuestion.chapter },
                     question_marks: filterQuestion.questionMarks,

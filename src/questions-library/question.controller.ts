@@ -1,7 +1,8 @@
 import { Body, Controller, Post, Logger } from "@nestjs/common";
-import { ApiCreatedResponse, ApiTags } from "@nestjs/swagger";
+import { ApiTags } from "@nestjs/swagger";
 import { QuestionService } from "./question.service";
-import { AddQuestionListReq, CreatePaperReq, IPaper } from "./dto/question.dto";
+import { AddQuestionListReq, CreatePaperReq } from "./dto/question.dto";
+import { IPaper } from "./interfaces/question.interface";
 
 @ApiTags("Question Bank")
 @Controller("api/question")
