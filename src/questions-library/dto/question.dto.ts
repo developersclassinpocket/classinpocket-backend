@@ -1,7 +1,19 @@
 import { Type } from "class-transformer";
-import { ArrayMinSize, ArrayNotEmpty, IsBoolean, IsInt, IsNotEmpty, IsNumber, ValidateNested } from "class-validator";
+import {
+    ArrayMinSize,
+    ArrayNotEmpty,
+    IsArray,
+    IsBoolean,
+    IsInt,
+    IsNotEmpty,
+    IsNumber,
+    IsOptional,
+    IsString,
+    ValidateNested,
+} from "class-validator";
 
 export class QuestionOption {
+    @IsString()
     @IsNotEmpty()
     text: string;
 
@@ -10,47 +22,61 @@ export class QuestionOption {
 }
 
 export class Question {
+    @IsString()
     @IsNotEmpty()
     board: string;
 
+    @IsString()
     @IsNotEmpty()
     class_name: string;
 
     @ArrayMinSize(1)
     topic: string[];
 
+    @IsString()
     @IsNotEmpty()
     subject: string;
 
+    @IsString()
     @IsNotEmpty()
     chapter: string;
 
+    @IsString()
     @IsNotEmpty()
     paper_cat: string;
 
+    @IsString()
     @IsNotEmpty()
     difficulty_level: string;
 
+    @IsString()
     @IsNotEmpty()
     question_text: string;
 
+    @IsString()
     @IsNotEmpty()
     question_cat: string;
 
-    @IsNotEmpty()
+    @IsOptional()
     @IsNumber()
+    @IsNotEmpty()
     question_time?: number;
 
-    @IsNotEmpty()
     @IsNumber()
+    @IsNotEmpty()
     question_marks: number;
 
+    @IsOptional()
+    @IsString()
     @IsNotEmpty()
-    pdf_solution: string;
+    pdf_solution?: string;
 
+    @IsOptional()
+    @IsString()
     @IsNotEmpty()
-    video_solution: string;
+    video_solution?: string;
 
+    @IsArray()
     @ArrayMinSize(4)
     @ValidateNested({ each: true })
     @Type(() => QuestionOption)
@@ -58,6 +84,7 @@ export class Question {
 }
 
 export class AddQuestionListReq {
+    @IsArray()
     @ArrayNotEmpty()
     @ValidateNested({ each: true })
     @Type(() => Question)
@@ -69,17 +96,20 @@ export class AddQuestionListReq {
 }
 
 export class CreatePaperReq {
+    @IsString()
     @IsNotEmpty()
     board: string;
 
+    @IsString()
     @IsNotEmpty()
     class_name: string;
 
+    @IsString()
     @IsNotEmpty()
     subject: string;
 
+    @IsArray()
     @ArrayNotEmpty()
-    @IsNotEmpty()
     chapter: string[];
 
     @IsNumber()

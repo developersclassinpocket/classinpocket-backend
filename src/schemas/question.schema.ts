@@ -12,7 +12,7 @@ class Question {
     @Prop({ index: true })
     subject: string;
 
-    @Prop()
+    @Prop({ index: true })
     topic: string[];
 
     @Prop({ index: true })
