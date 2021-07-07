@@ -4,9 +4,12 @@ import { QuestionModule } from "./questions-library/question.module";
 
 @Module({
     imports: [
-        MongooseModule.forRoot("mongodb+srv://god:god123@cluster0.elxva.mongodb.net/question_bank", {
-            useCreateIndex: true,
-        }),
+        MongooseModule.forRoot(
+            "mongodb+srv://classinpocket:ynGklNfYTc7gUBUa@classinpocketcluster.aghsv.mongodb.net/classinpocketLibrary?retryWrites=true&w=majority",
+            {
+                useCreateIndex: true,
+            }
+        ),
         QuestionModule,
     ],
 })
